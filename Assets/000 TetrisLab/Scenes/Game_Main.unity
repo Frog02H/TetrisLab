@@ -462,6 +462,50 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &936636209
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 936636210}
+  - component: {fileID: 936636211}
+  m_Layer: 0
+  m_Name: ActionController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &936636210
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 936636209}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &936636211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 936636209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb9e6ec8dc7676349ad2a812bcd94ac3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1021933887
 GameObject:
   m_ObjectHideFlags: 0
@@ -678,6 +722,7 @@ GameObject:
   - component: {fileID: 1598261512}
   - component: {fileID: 1598261513}
   - component: {fileID: 1598261514}
+  - component: {fileID: 1598261515}
   m_Layer: 0
   m_Name: MainBoard
   m_TagString: Untagged
@@ -741,7 +786,8 @@ MonoBehaviour:
   - tetrominoType: 6
     tile: {fileID: 11400000, guid: e062d2a61e333d04582536160206133f, type: 2}
   fallingPiece: {fileID: 0}
-  spawnPos: {x: 0, y: 0, z: 0}
+  spawnPos: {x: -1, y: 8, z: 0}
+  boardSize: {x: 10, y: 20}
 --- !u!114 &1598261514
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -754,6 +800,52 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27ea448361a3b2349b95399f765a097f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1598261515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1598261510}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 3820e34d9c3d99a48bdc682fa519ae98, type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 4f54a161-d735-4c4d-9107-b65fd0d992d8
+    m_ActionName: Player_KeyBoard/MoveToLeft[/Keyboard/a,/Keyboard/leftArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5442cced-1e11-4a01-9ffd-921f32be1630
+    m_ActionName: Player_KeyBoard/MoveToRight[/Keyboard/d,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 29b77873-dd02-4c19-aece-348290944a86
+    m_ActionName: Player_KeyBoard/MoveToDown[/Keyboard/s,/Keyboard/downArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 3587e309-bae8-426f-8e95-b188abd5432e
+    m_ActionName: Player_KeyBoard/HardDrop[/Keyboard/space]
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Player_KeyBoard
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 519420031}
 --- !u!1 &1838780640
 GameObject:
   m_ObjectHideFlags: 0
@@ -893,3 +985,4 @@ SceneRoots:
   - {fileID: 1838780642}
   - {fileID: 1289457550}
   - {fileID: 1892318066}
+  - {fileID: 936636210}
