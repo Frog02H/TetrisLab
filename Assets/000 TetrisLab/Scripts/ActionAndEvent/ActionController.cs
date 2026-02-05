@@ -83,7 +83,32 @@ public class ActionController : MonoBehaviour
 
     private void OnHardDrop(InputAction.CallbackContext context)
     {
-        
+        Debug.Log("HardDrop!");
+        bool isMove = true;
+        while(isMove)
+        {
+            isMove = tetrisContext.fallingPiece.Move(Vector3Int.down);
+        }
+        Debug.Log($"isMove:{isMove}");
     }
 
+    private void OnRotateToLeft(InputAction.CallbackContext context)
+    {
+        Debug.Log("Rotate_To_Left!");
+        
+        switch(tetrisContext.fallingPiece.current_Data.tetrominoType)
+        {
+            case TetrominoType.I :
+            case TetrominoType.O :
+                float x = tetrisContext.fallingPiece.current_Pos.x - 0.5f;
+                float y = tetrisContext.fallingPiece.current_Pos.y - 0.5f;
+                
+            break;
+            
+            default:
+
+            break;
+        }
+        Debug.Log(":{Temp}");
+    }
 }

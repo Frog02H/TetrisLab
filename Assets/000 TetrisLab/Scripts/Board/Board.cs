@@ -80,4 +80,9 @@ public class Board : MonoBehaviour
             this.tileMap.SetTile(tilePos, null);
         }
     }
+
+    public void Lock()
+    {
+        
+    }
 }
