@@ -62,6 +62,24 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RotateToLeft"",
+                    ""type"": ""Button"",
+                    ""id"": ""8a63df87-80a9-4932-bb99-b1f5a3c750e2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RotateToRight"",
+                    ""type"": ""Button"",
+                    ""id"": ""72add2c2-485f-448b-a4ba-48207456b7e5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -141,6 +159,28 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
                     ""action"": ""HardDrop"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ec2195a1-606e-4fca-b618-bad90cec75bb"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RotateToLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""00b8239e-541c-473d-8554-09ca93f8a3e7"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RotateToRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -153,6 +193,8 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
         m_Player_KeyBoard_MoveToRight = m_Player_KeyBoard.FindAction("MoveToRight", throwIfNotFound: true);
         m_Player_KeyBoard_MoveToDown = m_Player_KeyBoard.FindAction("MoveToDown", throwIfNotFound: true);
         m_Player_KeyBoard_HardDrop = m_Player_KeyBoard.FindAction("HardDrop", throwIfNotFound: true);
+        m_Player_KeyBoard_RotateToLeft = m_Player_KeyBoard.FindAction("RotateToLeft", throwIfNotFound: true);
+        m_Player_KeyBoard_RotateToRight = m_Player_KeyBoard.FindAction("RotateToRight", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -218,6 +260,8 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_KeyBoard_MoveToRight;
     private readonly InputAction m_Player_KeyBoard_MoveToDown;
     private readonly InputAction m_Player_KeyBoard_HardDrop;
+    private readonly InputAction m_Player_KeyBoard_RotateToLeft;
+    private readonly InputAction m_Player_KeyBoard_RotateToRight;
     public struct Player_KeyBoardActions
     {
         private @InputControls m_Wrapper;
@@ -226,6 +270,8 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
         public InputAction @MoveToRight => m_Wrapper.m_Player_KeyBoard_MoveToRight;
         public InputAction @MoveToDown => m_Wrapper.m_Player_KeyBoard_MoveToDown;
         public InputAction @HardDrop => m_Wrapper.m_Player_KeyBoard_HardDrop;
+        public InputAction @RotateToLeft => m_Wrapper.m_Player_KeyBoard_RotateToLeft;
+        public InputAction @RotateToRight => m_Wrapper.m_Player_KeyBoard_RotateToRight;
         public InputActionMap Get() { return m_Wrapper.m_Player_KeyBoard; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -247,6 +293,12 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
             @HardDrop.started += instance.OnHardDrop;
             @HardDrop.performed += instance.OnHardDrop;
             @HardDrop.canceled += instance.OnHardDrop;
+            @RotateToLeft.started += instance.OnRotateToLeft;
+            @RotateToLeft.performed += instance.OnRotateToLeft;
+            @RotateToLeft.canceled += instance.OnRotateToLeft;
+            @RotateToRight.started += instance.OnRotateToRight;
+            @RotateToRight.performed += instance.OnRotateToRight;
+            @RotateToRight.canceled += instance.OnRotateToRight;
         }
 
         private void UnregisterCallbacks(IPlayer_KeyBoardActions instance)
@@ -263,6 +315,12 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
             @HardDrop.started -= instance.OnHardDrop;
             @HardDrop.performed -= instance.OnHardDrop;
             @HardDrop.canceled -= instance.OnHardDrop;
+            @RotateToLeft.started -= instance.OnRotateToLeft;
+            @RotateToLeft.performed -= instance.OnRotateToLeft;
+            @RotateToLeft.canceled -= instance.OnRotateToLeft;
+            @RotateToRight.started -= instance.OnRotateToRight;
+            @RotateToRight.performed -= instance.OnRotateToRight;
+            @RotateToRight.canceled -= instance.OnRotateToRight;
         }
 
         public void RemoveCallbacks(IPlayer_KeyBoardActions instance)
@@ -286,5 +344,7 @@ public partial class @InputControls: IInputActionCollection2, IDisposable
         void OnMoveToRight(InputAction.CallbackContext context);
         void OnMoveToDown(InputAction.CallbackContext context);
         void OnHardDrop(InputAction.CallbackContext context);
+        void OnRotateToLeft(InputAction.CallbackContext context);
+        void OnRotateToRight(InputAction.CallbackContext context);
     }
 }

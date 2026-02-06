@@ -10,7 +10,7 @@ namespace TeterisLab
     public static readonly float sin = Mathf.Sin(Mathf.PI / 2f);
     public static readonly float[] RotationMatrix = new float[] { cos, sin, -sin, cos };
 
-    public static readonly Dictionary<TetrominoType, Vector2Int[]> Cells = new Dictionary<TetrominoType, Vector2Int[]>()
+    public static readonly Dictionary<TetrominoType, Vector2Int[]> Blocks = new Dictionary<TetrominoType, Vector2Int[]>()
     {
         { TetrominoType.I, new Vector2Int[] { new Vector2Int(-1, 1), new Vector2Int( 0, 1), new Vector2Int( 1, 1), new Vector2Int( 2, 1) } },
         { TetrominoType.J, new Vector2Int[] { new Vector2Int(-1, 1), new Vector2Int(-1, 0), new Vector2Int( 0, 0), new Vector2Int( 1, 0) } },

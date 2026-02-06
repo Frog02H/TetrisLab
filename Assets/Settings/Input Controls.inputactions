@@ -40,6 +40,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "RotateToLeft",
+                    "type": "Button",
+                    "id": "8a63df87-80a9-4932-bb99-b1f5a3c750e2",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "RotateToRight",
+                    "type": "Button",
+                    "id": "72add2c2-485f-448b-a4ba-48207456b7e5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -117,6 +135,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "HardDrop",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ec2195a1-606e-4fca-b618-bad90cec75bb",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RotateToLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "00b8239e-541c-473d-8554-09ca93f8a3e7",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RotateToRight",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -30,7 +30,7 @@ public class ActionController : MonoBehaviour
 
     private void Awake()
     {
-        if(instance == null || instance == this)
+        if (instance == null || instance == this)
         {
             instance = this;
         }
@@ -49,6 +49,8 @@ public class ActionController : MonoBehaviour
         inputControls.Player_KeyBoard.MoveToRight.started += OnMoveToRight;
         inputControls.Player_KeyBoard.MoveToDown.started += OnMoveToDown;
         inputControls.Player_KeyBoard.HardDrop.started += OnHardDrop;
+        inputControls.Player_KeyBoard.HardDrop.started += OnRotateToLeft;
+        inputControls.Player_KeyBoard.HardDrop.started += OnRotateToRight;
     }
 
     private void OnDisable()
@@ -58,6 +60,8 @@ public class ActionController : MonoBehaviour
         inputControls.Player_KeyBoard.MoveToRight.started -= OnMoveToRight;
         inputControls.Player_KeyBoard.MoveToDown.started -= OnMoveToDown;
         inputControls.Player_KeyBoard.HardDrop.started -= OnHardDrop;
+        inputControls.Player_KeyBoard.HardDrop.started -= OnRotateToLeft;
+        inputControls.Player_KeyBoard.HardDrop.started -= OnRotateToRight;
     }
 
     private void OnMoveToLeft(InputAction.CallbackContext context)
@@ -85,7 +89,7 @@ public class ActionController : MonoBehaviour
     {
         Debug.Log("HardDrop!");
         bool isMove = true;
-        while(isMove)
+        while (isMove)
         {
             isMove = tetrisContext.fallingPiece.Move(Vector3Int.down);
         }
@@ -95,20 +99,12 @@ public class ActionController : MonoBehaviour
     private void OnRotateToLeft(InputAction.CallbackContext context)
     {
         Debug.Log("Rotate_To_Left!");
-        
-        switch(tetrisContext.fallingPiece.current_Data.tetrominoType)
-        {
-            case TetrominoType.I :
-            case TetrominoType.O :
-                float x = tetrisContext.fallingPiece.current_Pos.x - 0.5f;
-                float y = tetrisContext.fallingPiece.current_Pos.y - 0.5f;
-                
-            break;
-            
-            default:
+        tetrisContext.fallingPiece.Rotate(-1);
+    }
 
-            break;
-        }
-        Debug.Log(":{Temp}");
+    private void OnRotateToRight(InputAction.CallbackContext context)
+    {
+        Debug.Log("Rotate_To_Right!");
+        tetrisContext.fallingPiece.Rotate(1);
     }
 }
