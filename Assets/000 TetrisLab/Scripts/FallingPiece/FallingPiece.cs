@@ -80,12 +80,15 @@ public class FallingPiece : MonoBehaviour
 
     public void Rotate(int direction)
     {
+        this.main_board.Clear(this);
+
         int originalRotationIndex = this.rotationIndex;
+
         this.rotationIndex = this.Wrap(this.rotationIndex + direction, 0, 4);
-        
+
         ApplyRotationMatrix(direction);
 
-        if(!TestWallKicks(this.rotationIndex, direction))
+        if (!TestWallKicks(this.rotationIndex, direction))
         {
             this.rotationIndex = originalRotationIndex;
             ApplyRotationMatrix(-direction);
@@ -94,6 +97,8 @@ public class FallingPiece : MonoBehaviour
 
     private void ApplyRotationMatrix(int direction)
     {
+        float[] matrix = Data.RotationMatrix;
+
         for (int i = 0; i < this.blocks.Length; i++)
         {
             Vector3 block = this.blocks[i];
@@ -106,13 +111,13 @@ public class FallingPiece : MonoBehaviour
                 case TetrominoType.O:
                     block.x -= 0.5f;
                     block.y -= 0.5f;
-                    x = Mathf.CeilToInt((block.x * Data.RotationMatrix[0] * direction) + (block.y + Data.RotationMatrix[1] * direction));
-                    y = Mathf.CeilToInt((block.x * Data.RotationMatrix[2] * direction) + (block.y * Data.RotationMatrix[3] * direction));
+                    x = Mathf.CeilToInt((block.x * matrix[0] * direction) + (block.y + matrix[1] * direction));
+                    y = Mathf.CeilToInt((block.x * matrix[2] * direction) + (block.y * matrix[3] * direction));
                     break;
 
                 default:
-                    x = Mathf.RoundToInt((block.x * Data.RotationMatrix[0] * direction) + (block.y + Data.RotationMatrix[1] * direction));
-                    y = Mathf.RoundToInt((block.x * Data.RotationMatrix[2] * direction) + (block.y * Data.RotationMatrix[3] * direction));
+                    x = Mathf.RoundToInt((block.x * matrix[0] * direction) + (block.y + matrix[1] * direction));
+                    y = Mathf.RoundToInt((block.x * matrix[2] * direction) + (block.y * matrix[3] * direction));
                     break;
             }
 
@@ -123,12 +128,12 @@ public class FallingPiece : MonoBehaviour
     private bool TestWallKicks(int rotationIndex, int rotationDirection)
     {
         int wallKickIndex = GetWallKickIndex(rotationIndex, rotationDirection);
-        
-        for(int i = 0; i < this.current_Data.wallKicks.GetLength(1); i++)
+
+        for (int i = 0; i < this.current_Data.wallKicks.GetLength(1); i++)
         {
             Vector2Int translation = this.current_Data.wallKicks[wallKickIndex, i];
 
-            if(Move((Vector3Int)translation))
+            if (Move((Vector3Int)translation))
             {
                 return true;
             }
@@ -141,7 +146,7 @@ public class FallingPiece : MonoBehaviour
     {
         int wallKickIndex = rotationIndex * 2;
 
-        if(rotationDirection < 0)
+        if (rotationDirection < 0)
         {
             wallKickIndex--;
         }

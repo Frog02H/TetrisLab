@@ -7,10 +7,10 @@ namespace TeterisLab
     public static class Data
     {
         public static readonly float cos = Mathf.Cos(Mathf.PI / 2f);
-    public static readonly float sin = Mathf.Sin(Mathf.PI / 2f);
-    public static readonly float[] RotationMatrix = new float[] { cos, sin, -sin, cos };
+        public static readonly float sin = Mathf.Sin(Mathf.PI / 2f);
+        public static readonly float[] RotationMatrix = new float[] { cos, sin, -sin, cos };
 
-    public static readonly Dictionary<TetrominoType, Vector2Int[]> Blocks = new Dictionary<TetrominoType, Vector2Int[]>()
+        public static readonly Dictionary<TetrominoType, Vector2Int[]> Blocks = new Dictionary<TetrominoType, Vector2Int[]>()
     {
         { TetrominoType.I, new Vector2Int[] { new Vector2Int(-1, 1), new Vector2Int( 0, 1), new Vector2Int( 1, 1), new Vector2Int( 2, 1) } },
         { TetrominoType.J, new Vector2Int[] { new Vector2Int(-1, 1), new Vector2Int(-1, 0), new Vector2Int( 0, 0), new Vector2Int( 1, 0) } },
@@ -21,7 +21,7 @@ namespace TeterisLab
         { TetrominoType.Z, new Vector2Int[] { new Vector2Int(-1, 1), new Vector2Int( 0, 1), new Vector2Int( 0, 0), new Vector2Int( 1, 0) } },
     };
 
-    private static readonly Vector2Int[,] WallKicksI = new Vector2Int[,] {
+        private static readonly Vector2Int[,] WallKicksI = new Vector2Int[,] {
         { new Vector2Int(0, 0), new Vector2Int(-2, 0), new Vector2Int( 1, 0), new Vector2Int(-2,-1), new Vector2Int( 1, 2) },
         { new Vector2Int(0, 0), new Vector2Int( 2, 0), new Vector2Int(-1, 0), new Vector2Int( 2, 1), new Vector2Int(-1,-2) },
         { new Vector2Int(0, 0), new Vector2Int(-1, 0), new Vector2Int( 2, 0), new Vector2Int(-1, 2), new Vector2Int( 2,-1) },
@@ -32,7 +32,7 @@ namespace TeterisLab
         { new Vector2Int(0, 0), new Vector2Int(-1, 0), new Vector2Int( 2, 0), new Vector2Int(-1, 2), new Vector2Int( 2,-1) },
     };
 
-    private static readonly Vector2Int[,] WallKicksJLOSTZ = new Vector2Int[,] {
+        private static readonly Vector2Int[,] WallKicksJLOSTZ = new Vector2Int[,] {
         { new Vector2Int(0, 0), new Vector2Int(-1, 0), new Vector2Int(-1, 1), new Vector2Int(0,-2), new Vector2Int(-1,-2) },
         { new Vector2Int(0, 0), new Vector2Int( 1, 0), new Vector2Int( 1,-1), new Vector2Int(0, 2), new Vector2Int( 1, 2) },
         { new Vector2Int(0, 0), new Vector2Int( 1, 0), new Vector2Int( 1,-1), new Vector2Int(0, 2), new Vector2Int( 1, 2) },
@@ -43,7 +43,7 @@ namespace TeterisLab
         { new Vector2Int(0, 0), new Vector2Int( 1, 0), new Vector2Int( 1, 1), new Vector2Int(0,-2), new Vector2Int( 1,-2) },
     };
 
-    public static readonly Dictionary<TetrominoType, Vector2Int[,]> WallKicks = new Dictionary<TetrominoType, Vector2Int[,]>()
+        public static readonly Dictionary<TetrominoType, Vector2Int[,]> WallKicks = new Dictionary<TetrominoType, Vector2Int[,]>()
     {
         { TetrominoType.I, WallKicksI },
         { TetrominoType.J, WallKicksJLOSTZ },
@@ -53,6 +53,7 @@ namespace TeterisLab
         { TetrominoType.T, WallKicksJLOSTZ },
         { TetrominoType.Z, WallKicksJLOSTZ },
     };
+
 
     }
 }

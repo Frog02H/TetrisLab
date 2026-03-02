@@ -49,8 +49,8 @@ public class ActionController : MonoBehaviour
         inputControls.Player_KeyBoard.MoveToRight.started += OnMoveToRight;
         inputControls.Player_KeyBoard.MoveToDown.started += OnMoveToDown;
         inputControls.Player_KeyBoard.HardDrop.started += OnHardDrop;
-        inputControls.Player_KeyBoard.HardDrop.started += OnRotateToLeft;
-        inputControls.Player_KeyBoard.HardDrop.started += OnRotateToRight;
+        inputControls.Player_KeyBoard.RotateToLeft.started += OnRotateToLeft;
+        inputControls.Player_KeyBoard.RotateToRight.started += OnRotateToRight;
     }
 
     private void OnDisable()
@@ -60,8 +60,8 @@ public class ActionController : MonoBehaviour
         inputControls.Player_KeyBoard.MoveToRight.started -= OnMoveToRight;
         inputControls.Player_KeyBoard.MoveToDown.started -= OnMoveToDown;
         inputControls.Player_KeyBoard.HardDrop.started -= OnHardDrop;
-        inputControls.Player_KeyBoard.HardDrop.started -= OnRotateToLeft;
-        inputControls.Player_KeyBoard.HardDrop.started -= OnRotateToRight;
+        inputControls.Player_KeyBoard.RotateToLeft.started -= OnRotateToLeft;
+        inputControls.Player_KeyBoard.RotateToRight.started -= OnRotateToRight;
     }
 
     private void OnMoveToLeft(InputAction.CallbackContext context)

@@ -159,6 +159,28 @@
                     "action": "RotateToRight",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "269e9b9e-0894-49d4-8f3b-7eb1661088cc",
+                    "path": "<Keyboard>/c",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RotateToRight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "216eb707-4013-4d04-9620-e230cf610747",
+                    "path": "<Keyboard>/z",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RotateToLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

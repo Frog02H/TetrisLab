@@ -5,7 +5,7 @@ using System;
 
 public class Board : MonoBehaviour
 {
-    
+
     // Tetromino 参数
     public TetrominoData[] tetrominos;
     public FallingPiece fallingPiece;
@@ -31,7 +31,7 @@ public class Board : MonoBehaviour
         this.tileMap = GetComponentInChildren<Tilemap>();
         this.fallingPiece = GetComponentInChildren<FallingPiece>();
 
-        for(int i = 0; i < this.tetrominos.Length; i++)
+        for (int i = 0; i < this.tetrominos.Length; i++)
         {
             this.tetrominos[i].Initialize();
         }
@@ -44,10 +44,10 @@ public class Board : MonoBehaviour
 
     private void Update()
     {
-        // Clear(this.fallingPiece);
+        Clear(this.fallingPiece);
 
         Set(this.fallingPiece);
-    }
+    } 
 
     public void SpawnPiece()
     {
@@ -56,6 +56,7 @@ public class Board : MonoBehaviour
         TetrominoData tetromino = this.tetrominos[pieceIndex];
 
         this.fallingPiece.Initialize(this, spawnPos, tetromino);
+        
         this.Set(fallingPiece);
     }
 
@@ -63,7 +64,7 @@ public class Board : MonoBehaviour
     {
         Clear(Piece);
 
-        for(int i = 0; i < Piece.blocks.Length; i++)
+        for (int i = 0; i < Piece.blocks.Length; i++)
         {
             Vector3Int tilePos = Piece.blocks[i] + Piece.current_Pos;
 
@@ -73,7 +74,7 @@ public class Board : MonoBehaviour
 
     public void Clear(FallingPiece Piece)
     {
-        for(int i = 0; i < Piece.blocks.Length; i++)
+        for (int i = 0; i < Piece.blocks.Length; i++)
         {
             Vector3Int tilePos = Piece.blocks[i] + Piece.current_Pos;
 
@@ -83,6 +84,6 @@ public class Board : MonoBehaviour
 
     public void Lock()
     {
-        
+
     }
 }
