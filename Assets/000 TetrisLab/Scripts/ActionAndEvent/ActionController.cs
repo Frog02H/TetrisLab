@@ -67,35 +67,34 @@ public class ActionController : MonoBehaviour
     private void OnMoveToLeft(InputAction.CallbackContext context)
     {
         Debug.Log("LEFT!");
-        bool isMove = tetrisContext.fallingPiece.Move(Vector3Int.left);
+        // bool isMove = tetrisContext.fallingPiece.HandleMoveInput(Vector3Int.left);
+        tetrisContext.fallingPiece.HandleMoveInput(Vector3Int.left);
         // 如果没有Updates
         // tetrisContext.board.Set(tetrisContext.fallingPiece);
-        Debug.Log($"isMove:{isMove}");
+        // Debug.Log($"isMove:{isMove}");
     }
 
     private void OnMoveToRight(InputAction.CallbackContext context)
     {
         Debug.Log("RIGHT!");
-        bool isMove = tetrisContext.fallingPiece.Move(Vector3Int.right);
-        Debug.Log($"isMove:{isMove}");
+        // bool isMove = tetrisContext.fallingPiece.HandleMoveInput(Vector3Int.right);
+        tetrisContext.fallingPiece.HandleMoveInput(Vector3Int.right);
+        // Debug.Log($"isMove:{isMove}");
     }
 
     private void OnMoveToDown(InputAction.CallbackContext context)
     {
         Debug.Log("DOWN!");
-        bool isMove = tetrisContext.fallingPiece.Move(Vector3Int.down);
-        Debug.Log($"isMove:{isMove}");
+        // bool isMove = tetrisContext.fallingPiece.HandleMoveInput(Vector3Int.down);
+        tetrisContext.fallingPiece.HandleMoveInput(Vector3Int.down);
+        // Debug.Log($"isMove:{isMove}");
     }
 
     private void OnHardDrop(InputAction.CallbackContext context)
     {
         Debug.Log("HardDrop!");
-        bool isMove = true;
-        while (isMove)
-        {
-            isMove = tetrisContext.fallingPiece.Move(Vector3Int.down);
-        }
-        Debug.Log($"isMove:{isMove}");
+        tetrisContext.fallingPiece.HardDrop();
+        // Debug.Log($"isMove:{isMove}");
     }
 
     private void OnRotateToLeft(InputAction.CallbackContext context)
@@ -109,4 +108,25 @@ public class ActionController : MonoBehaviour
         Debug.Log("Rotate_To_Right!");
         tetrisContext.fallingPiece.Rotate(1);
     }
+
+    /*     
+    private void OnTimeUpdateStep(InputAction.CallbackContext context)
+    {
+        Debug.Log("TimeUpdate_Step!");
+        tetrisContext.fallingPiece.TimeUpdate_Step();
+    }
+
+    private void OnTimeUpdateMove(InputAction.CallbackContext context)
+    {
+        Debug.Log("TimeUpdate_Move!");
+        tetrisContext.fallingPiece.TimeUpdate_Move();
+    }
+
+    private void OnTimeUpdateLock(InputAction.CallbackContext context)
+    {
+        Debug.Log("TimeUpdate_Lock!");
+        tetrisContext.fallingPiece.TimeUpdate_Lock(true);
+    } 
+    */
+
 }

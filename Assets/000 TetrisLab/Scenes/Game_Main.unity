@@ -38,7 +38,6 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -188,12 +187,12 @@ MonoBehaviour:
   m_RequiresColorTexture: 0
   m_Version: 2
   m_TaaSettings:
-    quality: 3
-    frameInfluence: 0.1
-    jitterScale: 1
-    mipBias: 0
-    varianceClampScale: 0.9
-    contrastAdaptiveSharpening: 0
+    m_Quality: 3
+    m_FrameInfluence: 0.1
+    m_JitterScale: 1
+    m_MipBias: 0
+    m_VarianceClampScale: 0.9
+    m_ContrastAdaptiveSharpening: 0
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -800,6 +799,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27ea448361a3b2349b95399f765a097f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stepDelay: 1
+  moveDelay: 0.5
+  lockDelay: 0.5
 --- !u!114 &1598261515
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -841,6 +843,14 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 3587e309-bae8-426f-8e95-b188abd5432e
     m_ActionName: Player_KeyBoard/HardDrop[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 8a63df87-80a9-4932-bb99-b1f5a3c750e2
+    m_ActionName: Player_KeyBoard/RotateToLeft[/Keyboard/q,/Keyboard/z]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 72add2c2-485f-448b-a4ba-48207456b7e5
+    m_ActionName: Player_KeyBoard/RotateToRight[/Keyboard/e,/Keyboard/c]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player_KeyBoard

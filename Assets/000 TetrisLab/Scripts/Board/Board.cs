@@ -44,10 +44,7 @@ public class Board : MonoBehaviour
 
     private void Update()
     {
-        if(fallingPiece.isReset)
-        {
         this.Clear(this.fallingPiece);
-        }
         
         this.Set(this.fallingPiece);
     } 
@@ -85,8 +82,78 @@ public class Board : MonoBehaviour
         }
     }
 
-    public void Lock()
+    public bool isValidPosition(FallingPiece piece, Vector3Int toward)
     {
+        RectInt bounds = this.Bounds;
 
+        for (int i = 0; i < piece.blocks.Length; i++)
+        {
+            Vector3Int nextTilePos = piece.current_Pos + piece.blocks[i] + toward;
+
+            if (!bounds.Contains((Vector2Int)nextTilePos))
+            {
+                Debug.Log($"nextTilePos:{nextTilePos}");
+                Debug.Log("Bounds Fail!");
+                return false;
+            }
+
+            if (this.tileMap.HasTile(nextTilePos))
+            {
+                Debug.Log($"currentTilePos:{piece.current_Pos + piece.blocks[i]}");
+                Debug.Log($"nextTilePos:{nextTilePos}");
+                Debug.Log("Tiles Fail!");
+                return false;
+            }
+        }
+
+        return true;
     }
+
+    internal void ClearLines()
+    {
+        RectInt bounds = Bounds;
+        int row = bounds.yMin;
+
+        // 遍历当前范围中所有Tile,跳过未满行,直到遇到一个满行,才执行该行的清除.
+        while(row < bounds.yMax)
+        {
+            if(IsLineFull(row))
+            {
+                LineClear(row);
+            }
+            else
+            {
+                row++;
+            }
+        }
+    }
+
+    private bool IsLineFull(int row)
+    {
+        RectInt bounds = Bounds;
+
+        for(int col = bounds.xMin; col < bounds.xMax; col++)
+        {
+            Vector3Int position = new Vector3Int(col, row, 0);
+
+            if(!tileMap.HasTile(position))
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private void LineClear(int row)
+    {
+        RectInt bounds = Bounds;
+
+        for(int col = bounds.xMin; col < bounds.xMax; col++)
+        {
+            Vector3Int position = new Vector3Int(col, row, 0);
+            tileMap.SetTile(position, null);
+        }
+    }
+
 }

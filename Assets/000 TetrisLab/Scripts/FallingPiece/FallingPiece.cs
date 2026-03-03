@@ -5,6 +5,8 @@ using UnityEngine;
 using TeterisLab;
 using System;
 using Unity.VisualScripting;
+using System.Threading;
+using UnityEditor.Rendering;
 
 public class FallingPiece : MonoBehaviour
 {
@@ -16,7 +18,16 @@ public class FallingPiece : MonoBehaviour
 
     public int rotationIndex { get; private set; }
 
-    public bool isReset = false;
+    public float stepDelay = 1f;
+    public float moveDelay = 0.5f;
+    public float lockDelay = 0.5f;
+
+    private float stepTime;
+    private float moveTime;
+    private float lockTime;
+
+    public Vector3Int direction = Vector3Int.zero;
+    public bool isStep = true;
 
     public void Initialize(Board board, Vector3Int pos, TetrominoData tetrominoData)
     {
@@ -24,6 +35,10 @@ public class FallingPiece : MonoBehaviour
         this.current_Pos = pos;
         this.current_Data = tetrominoData;
         this.rotationIndex = 0;
+
+        TimeUpdate_Step();
+        TimeUpdate_Move();
+        TimeUpdate_Lock(false);
 
         ActionController.instance.context_Controll.Init(board, this);
 
@@ -39,47 +54,113 @@ public class FallingPiece : MonoBehaviour
         }
     }
 
-    public bool Move(Vector3Int toward)
+    private void Update()
+    {
+        this.TimeUpdate_Lock(true);
+
+        if(Time.time > moveTime)
+        {
+            if(direction != Vector3Int.zero)
+            {
+                TryToMoving(direction);
+            }
+            /*
+            if(TryToMoving(direction))
+            {
+                direction = Vector3Int.zero;
+            }
+            else
+            {
+                direction = Vector3Int.down;
+            }
+            */
+        }
+
+        if (isStep)
+        {
+            if (Time.time > stepTime)
+            {
+                this.Step();
+            }
+        }
+    }
+
+    private void Lock()
+    {
+        main_board.Set(this);
+        main_board.ClearLines();
+        main_board.SpawnPiece();
+    }
+
+    private bool Move(Vector3Int toward)
     {
         this.main_board.Clear(this);
 
-        bool valid = this.isValidPosition(this, toward);
-
-        isReset = valid;
+        bool valid = this.main_board.isValidPosition(this, toward);
 
         Debug.Log($"valid:{valid}");
 
+        // 避免 玩家移动操作 和 自动下移 冲突
         if (valid)
         {
             this.current_Pos += toward;
+            this.TimeUpdate_Move();
+            this.TimeUpdate_Lock(false);
         }
 
         return valid;
     }
 
-    private bool isValidPosition(FallingPiece piece, Vector3Int toward)
+    private void Step()
     {
-        for (int i = 0; i < piece.blocks.Length; i++)
+        TimeUpdate_Step();
+
+        Debug.Log("/////////////// Step ///////////////");
+        Move(Vector3Int.down);
+        Debug.Log("/////////////// Step_End /////////////");
+
+        if (lockTime >= lockDelay)
         {
-            Vector3Int nextTilePos = piece.current_Pos + piece.blocks[i] + toward;
+            Lock();
+        }
+    }
 
-            if (!piece.main_board.Bounds.Contains((Vector2Int)nextTilePos))
-            {
-                Debug.Log($"nextTilePos:{nextTilePos}");
-                Debug.Log("Bounds Fail!");
-                return false;
-            }
+    public void HandleMoveInput(Vector3Int toward)
+    {
+        this.direction = toward;
+    }
 
-            if (piece.main_board.tileMap.HasTile(nextTilePos))
+    private bool TryToMoving(Vector3Int toward)
+    {   
+        bool isMove = false;
+
+        isStep = false;
+
+        if (Time.time > moveTime)
+        {
+            isMove = this.Move(toward);
+
+            if (isMove && toward == Vector3Int.down)
             {
-                Debug.Log($"currentTilePos:{piece.current_Pos + piece.blocks[i]}");
-                Debug.Log($"nextTilePos:{nextTilePos}");
-                Debug.Log("Tiles Fail!");
-                return false;
+                TimeUpdate_Step();
             }
         }
 
-        return true;
+        isStep = true;
+
+        direction = Vector3Int.zero;
+
+        return isMove;
+    }
+
+    public void HardDrop()
+    {
+        while (this.Move(Vector3Int.down))
+        {
+            continue;
+        }
+
+        this.Lock();
     }
 
     public void Rotate(int direction)
@@ -167,6 +248,28 @@ public class FallingPiece : MonoBehaviour
         else
         {
             return min + (input - min) % (max - min);
+        }
+    }
+
+    public void TimeUpdate_Step()
+    {
+        stepTime = Time.time + stepDelay;
+    }
+
+    public void TimeUpdate_Move()
+    {
+        moveTime = Time.time + stepDelay;
+    }
+
+    public void TimeUpdate_Lock(bool isReset)
+    {
+        if (isReset)
+        {
+            lockTime += Time.deltaTime;
+        }
+        else
+        {
+            lockTime = 0f;
         }
     }
 }
