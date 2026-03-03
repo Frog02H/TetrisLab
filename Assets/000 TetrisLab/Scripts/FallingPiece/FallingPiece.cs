@@ -16,6 +16,8 @@ public class FallingPiece : MonoBehaviour
 
     public int rotationIndex { get; private set; }
 
+    public bool isReset = false;
+
     public void Initialize(Board board, Vector3Int pos, TetrominoData tetrominoData)
     {
         this.main_board = board;
@@ -42,6 +44,8 @@ public class FallingPiece : MonoBehaviour
         this.main_board.Clear(this);
 
         bool valid = this.isValidPosition(this, toward);
+
+        isReset = valid;
 
         Debug.Log($"valid:{valid}");
 
@@ -111,12 +115,12 @@ public class FallingPiece : MonoBehaviour
                 case TetrominoType.O:
                     block.x -= 0.5f;
                     block.y -= 0.5f;
-                    x = Mathf.CeilToInt((block.x * matrix[0] * direction) + (block.y + matrix[1] * direction));
+                    x = Mathf.CeilToInt((block.x * matrix[0] * direction) + (block.y * matrix[1] * direction));
                     y = Mathf.CeilToInt((block.x * matrix[2] * direction) + (block.y * matrix[3] * direction));
                     break;
 
                 default:
-                    x = Mathf.RoundToInt((block.x * matrix[0] * direction) + (block.y + matrix[1] * direction));
+                    x = Mathf.RoundToInt((block.x * matrix[0] * direction) + (block.y * matrix[1] * direction));
                     y = Mathf.RoundToInt((block.x * matrix[2] * direction) + (block.y * matrix[3] * direction));
                     break;
             }

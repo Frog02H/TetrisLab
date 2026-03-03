@@ -68,6 +68,8 @@ public class ActionController : MonoBehaviour
     {
         Debug.Log("LEFT!");
         bool isMove = tetrisContext.fallingPiece.Move(Vector3Int.left);
+        // 如果没有Updates
+        // tetrisContext.board.Set(tetrisContext.fallingPiece);
         Debug.Log($"isMove:{isMove}");
     }
 

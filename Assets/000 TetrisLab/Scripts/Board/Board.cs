@@ -44,9 +44,12 @@ public class Board : MonoBehaviour
 
     private void Update()
     {
-        Clear(this.fallingPiece);
-
-        Set(this.fallingPiece);
+        if(fallingPiece.isReset)
+        {
+        this.Clear(this.fallingPiece);
+        }
+        
+        this.Set(this.fallingPiece);
     } 
 
     public void SpawnPiece()
@@ -62,7 +65,7 @@ public class Board : MonoBehaviour
 
     public void Set(FallingPiece Piece)
     {
-        Clear(Piece);
+        // Clear(Piece);
 
         for (int i = 0; i < Piece.blocks.Length; i++)
         {
