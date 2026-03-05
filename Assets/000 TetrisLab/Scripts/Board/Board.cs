@@ -46,6 +46,8 @@ public class Board : MonoBehaviour
     {
         this.Clear(this.fallingPiece);
         
+        this.fallingPiece.FallingPieceUpdate();
+
         this.Set(this.fallingPiece);
     } 
 
@@ -149,10 +151,26 @@ public class Board : MonoBehaviour
     {
         RectInt bounds = Bounds;
 
+        // empty current line
         for(int col = bounds.xMin; col < bounds.xMax; col++)
         {
             Vector3Int position = new Vector3Int(col, row, 0);
             tileMap.SetTile(position, null);
+        }
+
+        // let all lines "drop" down
+        while(row < bounds.yMax)
+        {
+            for(int col =  bounds.xMin; col < bounds.xMax; col++)
+            {
+                Vector3Int position = new Vector3Int(col, row + 1, 0);
+                TileBase above = tileMap.GetTile(position);
+
+                position.y -= 1;
+                tileMap.SetTile(position, above);
+            }
+
+            row++;
         }
     }
 

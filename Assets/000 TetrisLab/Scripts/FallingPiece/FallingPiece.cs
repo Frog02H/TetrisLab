@@ -26,8 +26,10 @@ public class FallingPiece : MonoBehaviour
     private float moveTime;
     private float lockTime;
 
-    public Vector3Int direction = Vector3Int.zero;
+    public int moveDirection = -1;
+    public int rotateDirection = 0;
     public bool isStep = true;
+    public bool isHardDrop = false;
 
     public void Initialize(Board board, Vector3Int pos, TetrominoData tetrominoData)
     {
@@ -54,26 +56,26 @@ public class FallingPiece : MonoBehaviour
         }
     }
 
-    private void Update()
+    public void FallingPieceUpdate()
     {
         this.TimeUpdate_Lock(true);
 
-        if(Time.time > moveTime)
+        if(rotateDirection != 0)
         {
-            if(direction != Vector3Int.zero)
+            Rotate(rotateDirection);
+        }
+
+        if(isHardDrop)
+        {
+            HardDrop();
+        }
+
+        if(moveDirection != -1)
+        {
+            if(Time.time > moveTime)
             {
-                TryToMoving(direction);
+                TryToMoving(moveDirection);
             }
-            /*
-            if(TryToMoving(direction))
-            {
-                direction = Vector3Int.zero;
-            }
-            else
-            {
-                direction = Vector3Int.down;
-            }
-            */
         }
 
         if (isStep)
@@ -94,7 +96,7 @@ public class FallingPiece : MonoBehaviour
 
     private bool Move(Vector3Int toward)
     {
-        this.main_board.Clear(this);
+        // this.main_board.Clear(this);
 
         bool valid = this.main_board.isValidPosition(this, toward);
 
@@ -125,30 +127,82 @@ public class FallingPiece : MonoBehaviour
         }
     }
 
-    public void HandleMoveInput(Vector3Int toward)
+    public void HandleMoveInput(int toward)
     {
-        this.direction = toward;
+        moveDirection = toward;
     }
 
-    private bool TryToMoving(Vector3Int toward)
+    public void HandleHardDropInput()
+    {
+        isHardDrop = true;
+    }
+
+    public void HandleRotateInput(int toward)
+    {
+        if(toward > 0)
+        {
+            toward = 1;
+        }
+        else if(toward < 0)
+        {
+            toward = -1;
+        }
+
+        rotateDirection = toward;
+    }
+
+    private bool TryToMoving(int toward)
     {   
         bool isMove = false;
 
-        isStep = false;
+        // isStep = false;
+
+        // Vector3Int moveToward = Vector3Int.zero;
 
         if (Time.time > moveTime)
         {
-            isMove = this.Move(toward);
 
-            if (isMove && toward == Vector3Int.down)
+        switch(toward)
+        {
+            case -1:
+                // moveToward = Vector3Int.zero;
+                isMove = false;
+            break;
+            case 0:
+                // moveToward = Vector3Int.down;
+                isMove = this.Move(Vector3Int.down);
+                TimeUpdate_Step();
+            break;
+            case 1:
+                // moveToward = Vector3Int.left;
+                isMove = this.Move(Vector3Int.left);
+            break;
+            case 2:
+                // moveToward= Vector3Int.right;
+                isMove = this.Move(Vector3Int.right);
+            break;
+            default:
+                isMove = false;
+            break;
+        }
+
+        /* 
+        if (Time.time > moveTime)
+        {
+            isMove = this.Move(moveToward);
+
+            // if (isMove && moveToward == Vector3Int.down)
+            if (isMove && toward == 0)
             {
                 TimeUpdate_Step();
             }
+        } 
+        */
         }
 
-        isStep = true;
+        // isStep = true;
 
-        direction = Vector3Int.zero;
+        this.moveDirection = -1;
 
         return isMove;
     }
@@ -159,13 +213,15 @@ public class FallingPiece : MonoBehaviour
         {
             continue;
         }
+        
+        isHardDrop = false;
 
         this.Lock();
     }
 
     public void Rotate(int direction)
     {
-        this.main_board.Clear(this);
+        // this.main_board.Clear(this);
 
         int originalRotationIndex = this.rotationIndex;
 
@@ -178,6 +234,8 @@ public class FallingPiece : MonoBehaviour
             this.rotationIndex = originalRotationIndex;
             ApplyRotationMatrix(-direction);
         }
+
+        this.rotateDirection = 0;
     }
 
     private void ApplyRotationMatrix(int direction)

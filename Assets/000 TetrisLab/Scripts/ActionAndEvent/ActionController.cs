@@ -45,30 +45,31 @@ public class ActionController : MonoBehaviour
         tetrisContext = new TetrisContext();
         inputControls = new InputControls();
         inputControls.Player_KeyBoard.Enable();
-        inputControls.Player_KeyBoard.MoveToLeft.started += OnMoveToLeft;
-        inputControls.Player_KeyBoard.MoveToRight.started += OnMoveToRight;
-        inputControls.Player_KeyBoard.MoveToDown.started += OnMoveToDown;
-        inputControls.Player_KeyBoard.HardDrop.started += OnHardDrop;
-        inputControls.Player_KeyBoard.RotateToLeft.started += OnRotateToLeft;
-        inputControls.Player_KeyBoard.RotateToRight.started += OnRotateToRight;
+        inputControls.Player_KeyBoard.MoveToLeft.performed += OnMoveToLeft;
+        inputControls.Player_KeyBoard.MoveToRight.performed += OnMoveToRight;
+        inputControls.Player_KeyBoard.MoveToDown.performed += OnMoveToDown;
+        inputControls.Player_KeyBoard.HardDrop.performed += OnHardDrop;
+        inputControls.Player_KeyBoard.RotateToLeft.performed += OnRotateToLeft;
+        inputControls.Player_KeyBoard.RotateToRight.performed += OnRotateToRight;
     }
 
     private void OnDisable()
     {
         inputControls.Player_KeyBoard.Disable();
-        inputControls.Player_KeyBoard.MoveToLeft.started -= OnMoveToLeft;
-        inputControls.Player_KeyBoard.MoveToRight.started -= OnMoveToRight;
-        inputControls.Player_KeyBoard.MoveToDown.started -= OnMoveToDown;
-        inputControls.Player_KeyBoard.HardDrop.started -= OnHardDrop;
-        inputControls.Player_KeyBoard.RotateToLeft.started -= OnRotateToLeft;
-        inputControls.Player_KeyBoard.RotateToRight.started -= OnRotateToRight;
+        inputControls.Player_KeyBoard.MoveToLeft.performed -= OnMoveToLeft;
+        inputControls.Player_KeyBoard.MoveToRight.performed -= OnMoveToRight;
+        inputControls.Player_KeyBoard.MoveToDown.performed -= OnMoveToDown;
+        inputControls.Player_KeyBoard.HardDrop.performed -= OnHardDrop;
+        inputControls.Player_KeyBoard.RotateToLeft.performed -= OnRotateToLeft;
+        inputControls.Player_KeyBoard.RotateToRight.performed -= OnRotateToRight;
     }
 
     private void OnMoveToLeft(InputAction.CallbackContext context)
     {
         Debug.Log("LEFT!");
         // bool isMove = tetrisContext.fallingPiece.HandleMoveInput(Vector3Int.left);
-        tetrisContext.fallingPiece.HandleMoveInput(Vector3Int.left);
+        // tetrisContext.fallingPiece.HandleMoveInput(Vector3Int.left);
+        tetrisContext.fallingPiece.HandleMoveInput(1);
         // 如果没有Updates
         // tetrisContext.board.Set(tetrisContext.fallingPiece);
         // Debug.Log($"isMove:{isMove}");
@@ -78,7 +79,8 @@ public class ActionController : MonoBehaviour
     {
         Debug.Log("RIGHT!");
         // bool isMove = tetrisContext.fallingPiece.HandleMoveInput(Vector3Int.right);
-        tetrisContext.fallingPiece.HandleMoveInput(Vector3Int.right);
+        // tetrisContext.fallingPiece.HandleMoveInput(Vector3Int.right);
+        tetrisContext.fallingPiece.HandleMoveInput(2);
         // Debug.Log($"isMove:{isMove}");
     }
 
@@ -86,27 +88,31 @@ public class ActionController : MonoBehaviour
     {
         Debug.Log("DOWN!");
         // bool isMove = tetrisContext.fallingPiece.HandleMoveInput(Vector3Int.down);
-        tetrisContext.fallingPiece.HandleMoveInput(Vector3Int.down);
+        // tetrisContext.fallingPiece.HandleMoveInput(Vector3Int.down);
+        tetrisContext.fallingPiece.HandleMoveInput(0);
         // Debug.Log($"isMove:{isMove}");
     }
 
     private void OnHardDrop(InputAction.CallbackContext context)
     {
         Debug.Log("HardDrop!");
-        tetrisContext.fallingPiece.HardDrop();
+        // tetrisContext.fallingPiece.HardDrop();
+        tetrisContext.fallingPiece.HandleHardDropInput();
         // Debug.Log($"isMove:{isMove}");
     }
 
     private void OnRotateToLeft(InputAction.CallbackContext context)
     {
         Debug.Log("Rotate_To_Left!");
-        tetrisContext.fallingPiece.Rotate(-1);
-    }
+        // tetrisContext.fallingPiece.Rotate(-1);
+        tetrisContext.fallingPiece.HandleRotateInput(-1);
+        }
 
     private void OnRotateToRight(InputAction.CallbackContext context)
     {
         Debug.Log("Rotate_To_Right!");
-        tetrisContext.fallingPiece.Rotate(1);
+        // tetrisContext.fallingPiece.Rotate(1);
+        tetrisContext.fallingPiece.HandleRotateInput(1);
     }
 
     /*     
